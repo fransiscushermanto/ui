@@ -25,16 +25,18 @@ export function useSelectCalculatePosition(
     [],
   );
 
-  const resizeObserver = new ResizeObserver((entries) => {
-    for (const entry of entries) {
-      if (entry.target === triggerRef.current) {
-        const bounds = getElementBounds(entry.target as HTMLElement);
-        setPosition(bounds);
-      }
-    }
-  });
-
   useEffect(() => {
+    if (typeof window === "undefined" || !window.ResizeObserver) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === triggerRef.current) {
+          const bounds = getElementBounds(entry.target as HTMLElement);
+          setPosition(bounds);
+        }
+      }
+    });
+
     if (triggerRef.current) {
       resizeObserver.observe(triggerRef.current);
     }
