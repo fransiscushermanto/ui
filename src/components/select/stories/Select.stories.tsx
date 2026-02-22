@@ -11,6 +11,13 @@ import type {
 
 const meta = {
   title: "Components/Select",
+  decorators: [
+    (Story) => (
+      <div className="w-full mx-auto max-w-[500px]">
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta;
 
 export default meta;

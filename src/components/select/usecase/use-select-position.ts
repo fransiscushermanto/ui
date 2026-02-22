@@ -41,7 +41,25 @@ export function useSelectCalculatePosition(
       resizeObserver.observe(triggerRef.current);
     }
 
+    let frameID: number | null = null;
+
+    function handleWindowResize() {
+      if (!triggerRef.current) return;
+
+      if (frameID) {
+        cancelAnimationFrame(frameID);
+      }
+
+      frameID = requestAnimationFrame(() => {
+        const bounds = getElementBounds(triggerRef.current as HTMLElement);
+        setPosition(bounds);
+      });
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
     return () => {
+      window.removeEventListener("resize", handleWindowResize);
       if (triggerRef.current) {
         resizeObserver.unobserve(triggerRef.current);
       }
