@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --spacing-select-height: 36px;
+  --spacing-select-dropdown-max-height: 300px;
+  --z-index-select-dropdown: 99999;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
